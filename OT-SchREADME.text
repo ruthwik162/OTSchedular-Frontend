@@ -1,0 +1,43 @@
+ot-scheduler-app/
+├── client/                             # React frontend (Vite or CRA)
+│   ├── public/
+│   ├── src/
+│   │   ├── assets/                     # Icons, logos, illustrations
+│   │   ├── components/                 # Reusable components
+│   │   │   ├── common/                # Input, Modal, Button, Navbar
+│   │   │   ├── admin/                 # Admin-specific components
+│   │   │   ├── doctor/                # Doctor dashboard components
+│   │   │   └── patient/               # Patient dashboard components
+│   │   ├── contexts/                  # React Context (auth, app data)
+│   │   │   └── AppContext.jsx
+│   │   ├── pages/                     # Views (routed pages)
+│   │   │   ├── Login.jsx
+│   │   │   ├── Register.jsx
+│   │   │   ├── AdminDashboard.jsx
+│   │   │   ├── DoctorDashboard.jsx
+│   │   │   ├── PatientDashboard.jsx
+│   │   │   └── ScheduleForm.jsx
+│   │   ├── services/                  # Firebase setup, helpers
+│   │   │   └── firebase.js
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── tailwind.config.js             # TailwindCSS config (if used)
+│   ├── package.json
+│   └── README.md
+
+├── server/                             # Node.js backend (optional API)
+│   ├── src/
+│   │   ├── controllers/                # REST API logic (ex: logs, users)
+│   │   ├── middlewares/               # Auth, error handling
+│   │   ├── models/                     # MongoDB or Firestore schema if used
+│   │   ├── routes/                     # API route files
+│   │   └── index.js                    # Main Express server
+│   ├── package.json
+│   └── README.md
+
+├── firestore.rules                     # Firebase security rules
+├── firebase.json                       # Firebase hosting + functions config
+├── .env                                # Environment variables
+├── .gitignore
+└── README.md                           # Full project documentation
+
