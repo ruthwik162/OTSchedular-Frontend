@@ -5,7 +5,7 @@ import axios from "axios";
 
 export const AppContext = createContext();
 
-const URL = "http://localhost:8087";
+const URL = "https://otschedular-backend.onrender.com";
 
 export const AppContextProvider = ({ children }) => {
   const navigate = useNavigate();

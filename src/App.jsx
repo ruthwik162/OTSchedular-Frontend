@@ -8,6 +8,7 @@ import Footer from './Components/common/Footer'
 import Profile from './Components/common/Profile'
 import Home from './Pages/Home'
 import Department from './Pages/Department'
+import About from './Components/common/About'
 
 const App = () => {
 
@@ -24,6 +25,7 @@ const App = () => {
         <Route path='/' element={<Home/>}/>
         <Route path='/profile' element={<Profile/>}/>
         <Route path='/department' element={<Department/>}/>
+        <Route path='/about' element={<About/>}/>
       </Routes>
 
       <Footer/>

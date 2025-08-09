@@ -1,21 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-
-import { departmentCaseTypes } from '../../assets/assets';
 import { GiHeartOrgan, GiBrain, GiBoneKnife, GiStomach, GiCancer, GiFemale, GiSun, GiMeditation, GiScalpel } from "react-icons/gi";
 import { MdPsychology } from "react-icons/md";
 import { IoFlowerOutline } from "react-icons/io5";
 import { HiArrowLeftCircle, HiArrowRight, HiArrowRightCircle } from "react-icons/hi2";
-
-
-const DoctorCard = () => {
-  const [currentIndex, setCurrentIndex] = useState(1);
-  const [direction, setDirection] = useState(1);
-  const [isHovered, setIsHovered] = useState(false);
-  const [data] = useState(Object.entries(departmentCaseTypes));
-
-  // Enhanced department colors with glass effect
-
+import { departmentCaseTypes } from '../../assets/assets';
 
 const departmentColors = {
   "Cardiology": { 
@@ -59,13 +48,13 @@ const departmentColors = {
     highlight: "bg-purple-100/30"
   },
   "Gynecology": { 
-  bg: "bg-gradient-to-br from-pink-50/70 via-white/50 to-white/20", 
-  text: "text-pink-600",
-  accent: "from-pink-400 to-pink-600",
-  border: "border-pink-100/30",
-  icon: <IoFlowerOutline className="text-pink-500" />,
-  highlight: "bg-pink-100/30"
-},
+    bg: "bg-gradient-to-br from-pink-50/70 via-white/50 to-white/20", 
+    text: "text-pink-600",
+    accent: "from-pink-400 to-pink-600",
+    border: "border-pink-100/30",
+    icon: <IoFlowerOutline className="text-pink-500" />,
+    highlight: "bg-pink-100/30"
+  },
   "Dermatology": { 
     bg: "bg-gradient-to-br from-orange-50/70 via-white/50 to-white/20", 
     text: "text-orange-600",
@@ -92,6 +81,32 @@ const departmentColors = {
   }
 };
 
+const DoctorCard = () => {
+  const [currentIndex, setCurrentIndex] = useState(1);
+  const [direction, setDirection] = useState(1);
+  const [isHovered, setIsHovered] = useState(false);
+  const [dragStartX, setDragStartX] = useState(0);
+  const [data] = useState(Object.entries(departmentCaseTypes));
+  const sliderRef = useRef(null);
+
+  // Utility to safely get X position from mouse/touch events
+  const getClientX = (e) => {
+    if ("clientX" in e) return e.clientX;
+    if (e.touches?.[0]) return e.touches[0].clientX;
+    if (e.changedTouches?.[0]) return e.changedTouches[0].clientX;
+    return 0;
+  };
+
+  const handleDragStart = (e) => {
+    setDragStartX(getClientX(e));
+  };
+
+  const handleDragEnd = (e) => {
+    const dragDistance = getClientX(e) - dragStartX;
+    if (Math.abs(dragDistance) > 100) {
+      dragDistance > 0 ? prevSlide() : nextSlide();
+    }
+  };
 
   // Auto-slide effect with pause on hover
   useEffect(() => {
@@ -141,41 +156,19 @@ const departmentColors = {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="flex items-center px-5 md:px-20 justify-between mb-6">
-      <h1 className="text-2xl md:text-4xl font-bold text-gray-800 text-center drop-shadow-sm">
-        Meet Our <span className="text-indigo-500">Specialists</span>
-      </h1>
-      <button
-        className="p-3 rounded-full bg-white/30 backdrop-blur-lg border border-white/40 text-gray-800 hover:bg-white/50 hover:scale-110 transition-all shadow-md"
-        aria-label="Next"
-      >
-        <HiArrowRight size={22} />
-      </button>
-    </div>
+        <h1 className="text-2xl md:text-4xl font-bold text-gray-800 text-center drop-shadow-sm">
+          Meet Our <span className="text-indigo-500">Specialists</span>
+        </h1>
+        <button
+          onClick={nextSlide}
+          className="p-3 rounded-full bg-white/30 md:block hidden backdrop-blur-lg border border-white/40 text-gray-800 hover:bg-white/50 hover:scale-110 transition-all shadow-md"
+          aria-label="Next"
+        >
+          <HiArrowRight size={22} />
+        </button>
+      </div>
 
-      {/* Navigation arrows */}
-      {/* <motion.button 
-        onClick={prevSlide}
-        className="absolute left-2 md:left-4 top-1/2 z-20 -translate-y-1/2 p-2 md:p-3 rounded-full bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all"
-        whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,1)' }}
-        whileTap={{ scale: 0.9 }}
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 md:h-6 md:w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-        </svg>
-      </motion.button>
-      
-      <motion.button 
-        onClick={nextSlide}
-        className="absolute right-2 md:right-1 top-1/2 z-20 -translate-y-1/2 p-2 md:p-3 rounded-full bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all"
-        whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,1)' }}
-        whileTap={{ scale: 0.9 }}
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 md:h-6 md:w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-        </svg>
-      </motion.button> */}
-
-      <div className="relative h-96 md:h-96 flex items-center justify-center">
+      <div className="relative h-75 md:h-70 flex items-center justify-center">
         {data.map(([department, caseTypes], index) => {
           const colors = departmentColors[department];
           const caseCount = caseTypes.length;
@@ -187,6 +180,11 @@ const departmentColors = {
             <motion.div
               key={index}
               className={`absolute w-full md:w-2/3 lg:w-1/2 h-full px-2 md:px-4`}
+              ref={sliderRef}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              onDragStart={handleDragStart}
+              onDragEnd={handleDragEnd}
               style={getCardStyle(index)}
               initial={{ 
                 opacity: 0, 
@@ -210,19 +208,21 @@ const departmentColors = {
               }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
-              <div className={`h-full rounded-2xl shadow-lg ${colors.bg} ${colors.border} border backdrop-blur-sm relative overflow-hidden group transition-all duration-300 ${position === 0 ? 'shadow-xl' : 'shadow-md'}`}>
+              <div className={`h-full rounded-2xl cursor-pointer shadow-lg ${colors.bg} ${colors.border} border backdrop-blur-sm relative overflow-hidden group transition-all duration-150 ${position === 0 ? 'shadow-xl' : 'shadow-md'}`}>
                 {/* Glass effect overlay */}
                 <div className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-2xl" />
                 
                 {/* Department header */}
                 <div className="relative p-6 pb-0 z-10">
                   <div className="flex items-center justify-between">
-                    <div>
+                    <div className='flex justify-center items-center'>
                       <div className="text-4xl mb-2 p-3 bg-white/30 rounded-full w-16 h-16 flex items-center justify-center backdrop-blur-sm">
                         {colors.icon}
                       </div>
-                      <h2 className={`text-2xl font-bold ${colors.text} mb-1`}>{department}</h2>
+                      <div className='flex flex-col justify-center ml-4'>
+                        <h2 className={`text-2xl font-bold ${colors.text} mb-1`}>{department}</h2>
                       <p className="text-gray-600 text-sm">{caseCount} specialized treatments</p>
+                      </div>
                     </div>
                     <div className="text-right">
                       <div className={`text-xs font-semibold px-2 py-1 rounded-full ${colors.highlight} ${colors.text} backdrop-blur-sm`}>
@@ -234,7 +234,7 @@ const departmentColors = {
                 </div>
                 
                 {/* Case types visualization */}
-                <div className="relative p-6 h-3/5 md:h-3/5 overflow-hidden z-10">
+                <div className="relative p-6 h-3/3 md:h-3/5 overflow-hidden z-10">
                   <div className="relative h-full">
                     {/* Animated floating bubbles */}
                     <div className="absolute inset-0 flex items-center justify-center">
@@ -273,7 +273,6 @@ const departmentColors = {
                     </div>
                     
                     {/* Main content area */}
-                    <div className={`absolute inset-0 flex flex-col justify-end p-4 bg-gradient-to-t from-white/70 via-white/50 to-transparent`}>
                       <motion.div 
                         className={`p-4 rounded-xl ${colors.highlight} backdrop-blur-sm border ${colors.border} shadow-sm`}
                         initial={{ opacity: 0, y: 20 }}
@@ -285,13 +284,12 @@ const departmentColors = {
                           Our {department.toLowerCase()} specialists provide advanced treatments for {caseCount} conditions.
                         </p>
                       </motion.div>
-                    </div>
                   </div>
                 </div>
 
                 {/* Floating accent elements */}
-                <div className={`absolute -bottom-20 -right-20 w-40 h-40 rounded-full bg-gradient-to-r ${colors.accent} opacity-5 group-hover:opacity-10 transition-opacity backdrop-blur-sm`}></div>
-                <div className={`absolute -top-10 -left-10 w-20 h-20 rounded-full bg-gradient-to-r ${colors.accent} opacity-5 group-hover:opacity-10 transition-opacity backdrop-blur-sm`}></div>
+                <div className={`absolute -bottom-20 -right-20 w-60 h-60 rounded-full bg-gradient-to-r ${colors.accent} opacity-5 group-hover:opacity-10 transition-opacity backdrop-blur-sm`}></div>
+                <div className={`absolute -top-10 -left-10 w-40 h-40 rounded-full bg-gradient-to-r ${colors.accent} opacity-5 group-hover:opacity-10 transition-opacity backdrop-blur-sm`}></div>
               </div>
             </motion.div>
           );

@@ -14,6 +14,11 @@ import resume_fullstack from "./Nagaruthwik_Fullstack_Resume.pdf"
 import Banner from './Banner.png'
 import Mainbanner from './Mainbanner.png'
 import Mainbanner_sm from './Mainbanner_sm.png'
+import ot1 from './OT1.jpg'
+import ot2 from './OT2.jpg'
+import xray from './Xray.png';
+import mri from './MRI.png';
+import ctscan from './ctscan.jpg';
 export const assets={
     Banner,
     express,
@@ -30,7 +35,12 @@ export const assets={
     image,
     resume_fullstack,
     Mainbanner,
-    Mainbanner_sm
+    Mainbanner_sm,
+    ot1,
+    ot2,
+    mri,
+    ctscan,
+    xray
 
 }
 export const pdf=[
