@@ -4,7 +4,7 @@ import { assets } from "../../assets/assets";
 import { FaUser, FaLock, FaEnvelope, FaPhone, FaEye, FaEyeSlash, FaUserMd, FaUserNurse, FaUserInjured, FaUserShield } from "react-icons/fa";
 import { MdOutlineEmergency, MdBloodtype, MdOutlineDescription } from "react-icons/md";
 import { GiMedicines } from "react-icons/gi";
-import { FiLoader } from "react-icons/fi";
+import { FiArrowDownLeft, FiLoader, FiX } from "react-icons/fi";
 import { IoMdArrowDropdown } from "react-icons/io";
 import toast from "react-hot-toast";
 import { useAppContext } from "../../AppContext/AppContext";
@@ -436,7 +436,7 @@ const Login = () => {
   const dropdownIconStyle = "absolute right-3 top-3.5 text-gray-400 pointer-events-none";
 
   return (
-    <div onClick={() => setShowUserLogin(false)} className="fixed inset-0 z-[999] bg-black/30 backdrop-blur-sm flex items-center justify-center  px-4">
+    <div className="fixed inset-0 z-[999] bg-black/30 backdrop-blur-sm flex items-center justify-center  px-4">
       <div className="bg-white rounded-xl overflow-hidden shadow-xl flex w-full max-w-4xl max-h-[75vh]">
         {/* Left Banner */}
         <div className="hidden md:flex md:w-1/2 bg-gradient-to-br from-indigo-500 to-blue-300 items-center justify-center p-8">
@@ -459,7 +459,10 @@ const Login = () => {
         </div>
 
         {/* Right Form */}
-        <div className="flex flex-col w-full md:w-1/2 p-6 md:p-8 overflow-y-auto">
+        <div className="flex flex-col relative w-full md:w-1/2 p-6 md:p-8 overflow-y-auto">
+          <button onClick={() => setShowUserLogin(false)}
+            className="absolute top-4 right-5 text-gray-500 cursor-pointer hover:text-gray-700 transition-colors p-2 rounded-xl hover:bg-gray-100"
+          ><FiX size={22} /></button>
           <div className="mb-6 text-center">
             <h2 className="text-3xl font-semibold text-gray-800">
               {state === "login" ? "Welcome Back!" : "Create an Account"}

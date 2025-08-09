@@ -60,7 +60,7 @@ const MedicalBanner = () => {
                 <motion.img
                     src={assets.Mainbanner}  // Update with your medical banner image
                     alt="Healthcare professionals banner"
-                    className='w-full hidden md:block object-cover min-h-[500px]'
+                    className='w-full hidden md:block object-cover min-h-[300px]'
                     initial={{ scale: 1.1 }}
                     animate={{ scale: 1 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
@@ -70,7 +70,7 @@ const MedicalBanner = () => {
                 <motion.img
                     src={assets.Mainbanner_sm}  // Update with your mobile medical banner image
                     alt="Healthcare professionals banner"
-                    className='w-full md:hidden object-cover min-h-[400px]'
+                    className='w-full md:hidden object-cover min-h-[700px]'
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5 }}
@@ -78,12 +78,12 @@ const MedicalBanner = () => {
 
                 {/* Content Overlay */}
                 <motion.div
-                    className='absolute inset-0  flex flex-col items-center  md:items-start justify-end md:justify-center pb-30 md:pb-0 px-4 md:pl-16 lg:pl-24 bg-gradient-to-t md:bg-gradient-to-r from-blue-900/70 to-transparent'
+                    className='absolute inset-0  flex flex-col items-center  md:items-start justify-end md:justify-center pb-65 md:pb-0 px-4 md:pl-16 lg:pl-24 bg-gradient-to-t md:bg-gradient-to-r from-blue-900/70 to-transparent'
                     variants={containerVariants}
                 >
                     {/* Headline */}
                     <motion.h1
-                        className='text-3xl md:text-4xl  lg:text-5xl font-bold text-center md:text-left max-w-2xl leading-tight lg:leading-15 text-white drop-shadow-md'
+                        className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-center md:text-left max-w-2xl leading-tight lg:leading-[3.75rem] bg-gradient-to-r from-indigo-200 via-pink-300 to-red-400 bg-clip-text text-transparent drop-shadow-lg"
                         variants={itemVariants}
                     >
                         Compassionate Care, <br className='hidden md:block' /> Advanced Medicine
@@ -91,7 +91,7 @@ const MedicalBanner = () => {
 
                     {/* Subheading */}
                     <motion.p
-                        className='mt-4 text-lg text-blue-100 text-center md:text-left max-w-2xl drop-shadow-sm'
+                        className='mt-4 text-lg text-blue-100 font-bold text-center md:text-left max-w-3xl drop-shadow-sm'
                         variants={itemVariants}
                     >
                         Your health is our priority. Experience personalized care from our team of specialists.

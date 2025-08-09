@@ -404,7 +404,7 @@ const About = () => {
                     </motion.p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                     {surgeons.map((doctor, index) => (
                         <motion.div
                             key={index}
@@ -436,8 +436,8 @@ const About = () => {
 
                                 <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-transparent to-transparent opacity-70"></div>
                                 <div className="absolute bottom-0 left-0 p-6 w-full">
-                                    <h3 className="text-2xl font-bold text-white">{doctor.name}</h3>
-                                    <p className="text-cyan-100">{doctor.specialization}</p>
+                                    <h3 className="text-2xl font-bold text-black">{doctor.name}</h3>
+                                    <p className="text-gray-300">{doctor.specialization}</p>
                                 </div>
                             </div>
                             <div className="p-6">
@@ -459,7 +459,7 @@ const About = () => {
 
             {/* Emergency CTA Section */}
             <motion.div
-                className="rounded-3xl overflow-hidden mb-20"
+                className="rounded-3xl overflow-hidden mb-5"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -493,7 +493,7 @@ const About = () => {
 
             {/* Mission/Vision Section */}
             <motion.div
-                className="grid md:grid-cols-2 gap-8 mb-20"
+                className="grid md:grid-cols-2 gap-8 mb-5"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
@@ -515,21 +515,21 @@ const About = () => {
                 </div>
 
                 <div
-                    className="p-8 rounded-3xl relative overflow-hidden border border-blue-100 bg-white"
+                    className="p-8 rounded-3xl relative overflow-hidden border border-blue-100 bg-gradient-to-br from-blue-900 to-cyan-800"
                 >
-                    <div className="absolute -right-10 -top-10 w-40 h-40 rounded-full opacity-10 bg-cyan-200"></div>
-                    <h3 className="text-2xl font-bold mb-6 flex items-center text-blue-900">
+                    <div className="absolute -right-20 top-30 w-60 h-60 rounded-full opacity-10 bg-cyan-200"></div>
+                    <h3 className="text-2xl font-bold mb-6 flex items-center text-blue-100">
                         <FaBrain className="mr-3 text-cyan-500" /> Our Vision
                     </h3>
-                    <p className="text-lg text-blue-800">
+                    <p className="text-lg text-blue-100">
                         To be recognized as a global leader in patient-centered care, medical innovation,
                         and community health transformation.
                     </p>
                     <div className="mt-6 pt-6 border-t border-blue-100">
-                        <div className="flex items-center text-blue-700 mb-2">
+                        <div className="flex items-center text-blue-100 mb-2">
                             <FaClock className="mr-2 text-cyan-600" /> <span>Mon-Sun: 24/7 Services</span>
                         </div>
-                        <div className="flex items-center text-blue-700">
+                        <div className="flex items-center text-blue-100">
                             <FaMapMarkerAlt className="mr-2 text-cyan-600" /> <span>123 Healing Street, Medical City</span>
                         </div>
                     </div>

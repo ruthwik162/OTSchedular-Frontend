@@ -2,8 +2,37 @@
 
 body {
   overflow-x: hidden;
+  scroll-behavior: smooth; /* Smooth scrolling */
 }
 
+/* Box-sizing reset */
 * {
   box-sizing: border-box;
+}
+
+/* ===== Ultra-Thin Custom Scrollbar ===== */
+
+/* WebKit browsers (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 2px; /* ultra thin vertical */
+  height: 2px; /* ultra thin horizontal */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* no visible track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3b82f6; /* Tailwind blue */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2563eb;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin; /* Firefox's thinnest */
+  scrollbar-color: #3b82f6 transparent;
 }
