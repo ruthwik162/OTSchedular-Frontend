@@ -50,7 +50,7 @@ const MedicalBanner = () => {
 
     return (
         <motion.div
-            className='relative mt-15 md:mt-32 py-10 px-4 md:px-10 z-[0]'
+            className='relative mt-15 md:mt-20 py-10 px-4 md:px-10 z-[0]'
             initial="hidden"
             animate="visible"
             variants={containerVariants}

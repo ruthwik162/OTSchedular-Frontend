@@ -4,9 +4,10 @@ import Login from './Components/Auth/Login'
 import { Route, Routes } from 'react-router-dom'
 import { useAppContext } from './AppContext/AppContext'
 import Navbar from './Components/common/Navbar'
-import Home from './Components/common/Home'
 import Footer from './Components/common/Footer'
 import Profile from './Components/common/Profile'
+import Home from './Pages/Home'
+import Department from './Pages/Department'
 
 const App = () => {
 
@@ -22,6 +23,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/profile' element={<Profile/>}/>
+        <Route path='/department' element={<Department/>}/>
       </Routes>
 
       <Footer/>

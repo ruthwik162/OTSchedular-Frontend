@@ -37,6 +37,98 @@ export const pdf=[
 
 ]
 
+export const departmentCaseTypes = {
+  "Cardiology": [
+    "Heart Attack",
+    "Arrhythmia",
+    "Hypertension",
+    "Angina",
+    "Congenital Heart Disease",
+    "Heart Failure",
+    "Coronary Artery Disease",
+    "Valvular Heart Disease"
+  ],
+  "Neurology": [
+    "Stroke",
+    "Epilepsy",
+    "Brain Tumor",
+    "Parkinson's Disease",
+    "Multiple Sclerosis",
+    "Migraine",
+    "Alzheimer's Disease",
+    "ALS"
+  ],
+  "Orthopedics": [
+    "Fracture",
+    "Arthritis",
+    "Dislocation",
+    "Ligament Tear",
+    "Joint Replacement",
+    "Osteoporosis",
+    "Scoliosis",
+    "Carpal Tunnel Syndrome"
+  ],
+  "Gastroenterology": [
+    "Ulcers",
+    "Hepatitis",
+    "IBS",
+    "Gallstones",
+    "Pancreatitis",
+    "GERD",
+    "Crohn's Disease",
+    "Colon Cancer"
+  ],
+  "Oncology": [
+    "Breast Cancer",
+    "Lung Cancer",
+    "Leukemia",
+    "Skin Cancer",
+    "Brain Cancer",
+    "Prostate Cancer",
+    "Lymphoma",
+    "Ovarian Cancer"
+  ],
+  "Gynecology": [
+    "PCOD",
+    "Fibroids",
+    "Endometriosis",
+    "Pregnancy",
+    "Infertility",
+    "Menopause",
+    "Ovarian Cysts",
+    "Cervical Cancer"
+  ],
+  "Dermatology": [
+    "Acne",
+    "Eczema",
+    "Psoriasis",
+    "Fungal Infection",
+    "Skin Allergy",
+    "Melanoma",
+    "Rosacea",
+    "Vitiligo"
+  ],
+  "Psychiatry": [
+    "Depression",
+    "Anxiety",
+    "Bipolar Disorder",
+    "Schizophrenia",
+    "PTSD",
+    "OCD",
+    "ADHD",
+    "Eating Disorders"
+  ],
+  "General Surgery": [
+    "Appendicitis",
+    "Hernia",
+    "Gallbladder",
+    "Tonsillitis",
+    "Hemorrhoids",
+    "Varicose Veins",
+    "Thyroid Disorders",
+    "Breast Surgery"
+  ]
+};
 
 
 export const dummyImages=[

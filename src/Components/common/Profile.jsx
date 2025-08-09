@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { motion } from 'framer-motion';
-import { FiEdit, FiSave, FiX, FiCamera, FiUser, FiMail, FiPhone, FiUsers } from 'react-icons/fi';
+import { FiEdit, FiSave, FiX, FiCamera, FiUser, FiMail, FiPhone, FiUsers, FiLoader } from 'react-icons/fi';
 import { useAppContext } from '../../AppContext/AppContext';
+import { FaCog, FaSpinner } from 'react-icons/fa';
 
 
 const Profile = () => {
@@ -12,6 +13,9 @@ const Profile = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [profileImage, setProfileImage] = useState(null);
+    const [profileImageFile, setProfileImageFile] = useState(null);
+    const { URL } = useAppContext();
+
 
     useEffect(() => {
         if (user) {
@@ -30,12 +34,12 @@ const Profile = () => {
     const handleImageChange = (e) => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
-            setProfileImage(file);
+            setProfileImageFile(file);
             const reader = new FileReader();
             reader.onloadend = () => {
                 setUserData((prev) => ({
                     ...prev,
-                    image: reader.result,
+                    profileImageUrl: reader.result,
                 }));
             };
             reader.readAsDataURL(file);
@@ -48,22 +52,23 @@ const Profile = () => {
 
         try {
             const formData = new FormData();
-            formData.append('username', userData.username);
-            formData.append('email', userData.email);
-            formData.append('mobile', userData.mobile);
-            formData.append('gender', userData.gender);
-            if (userData.image) {
-                formData.append('image', userData.image);
+            formData.append('username', userData.username || '');
+            formData.append('mobile', userData.mobile || '');
+            formData.append('gender', userData.gender || '');
+            if (profileImageFile) {
+                formData.append('image', profileImageFile);
             }
 
+            const token = localStorage.getItem('token');
             const response = await axios.put(
-                `/users/${user.email}`,
+                `${URL}/user/update/${userData.email}`,
                 formData,
                 {
                     headers: {
                         'Content-Type': 'multipart/form-data',
-                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                        Authorization: `Bearer ${token}`,
                     },
+                    withCredentials: true,
                 }
             );
 
@@ -73,10 +78,38 @@ const Profile = () => {
             sessionStorage.setItem('user', JSON.stringify(updatedUser));
 
             setIsEditing(false);
-            toast.success('Profile updated successfully!');
+            setProfileImageFile(null);
+            toast.success('Profile updated successfully!', {
+                style: {
+                    background: '#4BB543',
+                    color: '#fff',
+                    padding: '12px 20px',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                },
+                iconTheme: {
+                    primary: '#fff',
+                    secondary: '#4BB543'
+                }
+            });
         } catch (error) {
-            toast.error('Failed to update profile');
-            console.error('Profile update error:', error.response || error);
+            console.error('Profile update error details:', error);
+            toast.error(
+                error.response?.data?.message || 'Failed to update profile. Please try again.',
+                {
+                    style: {
+                        background: '#FF3333',
+                        color: '#fff',
+                        padding: '12px 20px',
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                    },
+                    iconTheme: {
+                        primary: '#fff',
+                        secondary: '#FF3333'
+                    }
+                }
+            );
         } finally {
             setIsLoading(false);
         }
@@ -87,14 +120,14 @@ const Profile = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="min-h-screen  bg-gradient-to-br from-blue-50 to-indigo-100 py-5 px-4 sm:px-6 lg:px-8"
+            className="min-h-screen   py-5 md:py-5 px-4 sm:px-6 lg:px-8"
         >
             <div className="max-w-3xl mx-auto">
                 <motion.div
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.2 }}
-                    className="bg-white mt-35 rounded-2xl shadow-xl overflow-hidden"
+                    className="bg-white mt-18 rounded-2xl shadow-xl overflow-hidden"
                 >
                     {/* Profile Header */}
                     <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 text-white">
@@ -262,22 +295,72 @@ const Profile = () => {
                                     <motion.button
                                         type="submit"
                                         disabled={isLoading}
-                                        whileHover={{ scale: isLoading ? 1 : 1.05 }}
-                                        whileTap={{ scale: isLoading ? 1 : 0.95 }}
-                                        className="px-6 py-2 bg-blue-600 text-white rounded-full font-medium hover:bg-blue-700 transition flex items-center gap-2 disabled:opacity-70"
+                                        whileHover={!isLoading ? {
+                                            scale: 1.05,
+                                            boxShadow: "0 5px 15px rgba(59, 130, 246, 0.4)",
+                                            backgroundColor: "#2563eb"
+                                        } : {}}
+                                        whileTap={!isLoading ? {
+                                            scale: 0.98,
+                                            backgroundColor: "#1e40af"
+                                        } : {}}
+                                        className="relative px-6 py-3 bg-blue-600 text-white rounded-full font-medium transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-80 overflow-hidden"
+                                        style={{ minWidth: "140px" }}
                                     >
-                                        {isLoading ? (
-                                            <>
-                                                <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                                </svg>
-                                                Saving...
-                                            </>
-                                        ) : (
-                                            <>
-                                                <FiSave /> Save Changes
-                                            </>
+
+
+                                        <motion.span className="relative z-10 flex items-center gap-2">
+                                            {isLoading ? (
+                                                <>
+                                                    <motion.span
+                                                        key="spinner"
+                                                        initial={{ opacity: 0, rotate: 0 }}
+                                                        animate={{
+                                                            opacity: 1,
+                                                            rotate: 360,
+                                                        }}
+                                                        transition={{
+                                                            rotate: {
+                                                                duration: 1.5, // Slower rotation
+                                                                repeat: Infinity,
+                                                                ease: "easeInOut",
+                                                                times: [0, 0.8, 1], // Spends more time at start/end
+                                                            },
+                                                            opacity: {
+                                                                duration: 0.3
+                                                            }
+                                                        }}
+                                                        className="text-white"
+                                                    >
+                                                        <FiLoader className="w-5 h-5" />
+                                                    </motion.span>
+                                                    <motion.span
+                                                        key="text"
+                                                        initial={{ opacity: 0, x: 10 }}
+                                                        animate={{ opacity: 1, x: 0 }}
+                                                        transition={{ delay: 0.1 }}
+                                                    >
+                                                        Saving...
+                                                    </motion.span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <FiSave className="w-5 h-5" />
+                                                    <span>Save Changes</span>
+                                                </>
+                                            )}
+                                        </motion.span>
+
+                                        {!isLoading && (
+                                            <motion.span
+                                                className="absolute inset-0 rounded-full bg-white opacity-0"
+                                                initial={{ scale: 0.5, opacity: 0 }}
+                                                whileTap={{
+                                                    scale: 2,
+                                                    opacity: 0.2,
+                                                    transition: { duration: 0.5 }
+                                                }}
+                                            />
                                         )}
                                     </motion.button>
                                 </motion.div>
