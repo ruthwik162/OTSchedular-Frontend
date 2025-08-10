@@ -9,6 +9,7 @@ import Profile from './Components/common/Profile'
 import Home from './Pages/Home'
 import Department from './Pages/Department'
 import About from './Components/common/About'
+import PatientProfile from './Components/common/PatientProfile'
 
 const App = () => {
 
@@ -26,6 +27,7 @@ const App = () => {
         <Route path='/profile' element={<Profile/>}/>
         <Route path='/department' element={<Department/>}/>
         <Route path='/about' element={<About/>}/>
+        <Route path='/my-appointment' element={<PatientProfile/>}/>
       </Routes>
 
       <Footer/>
