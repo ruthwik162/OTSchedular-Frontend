@@ -8,6 +8,8 @@ import {
 } from "react-icons/fi";
 import { FaUserNurse, FaUserMd } from "react-icons/fa";
 import { useAppContext } from "../AppContext/AppContext";
+import { motion } from "framer-motion";
+import { GiStethoscope } from "react-icons/gi";
 
 const DoctorDashboard = () => {
   const [user, setUser] = useState(null);
@@ -125,39 +127,109 @@ const DoctorDashboard = () => {
     );
   };
 
-  if (loading) {
-    return (
-      <div className="fixed inset-0 bg-white/90 backdrop-blur-sm z-50 flex items-center justify-center">
-        <div className="text-center max-w-md px-6">
-          <div className="relative mx-auto w-20 h-20">
-            <FiLoader 
-              className="absolute inset-0 w-10 h-10 text-indigo-600 animate-spin"
-            />
-          </div>
-          <div className="">
-            <h3 className="text-2xl font-semibold text-gray-800 bg-gradient-to-r from-indigo-600 to-indigo-400 bg-clip-text">
-              Loading Dashboard
-            </h3>
-            <p className="text-gray-600 flex flex-col gap-5 items-center justify-center">
-              Preparing your OT details
-              <span className="flex ml-1 space-x-1">
-                {[0, 1, 2,3,4].map((i) => (
-                  <span 
-                    key={i}
-                    className="inline-block w-2 h-2 bg-indigo-400  rounded-full"
-                    style={{
-                      animation: `bounce 1.4s infinite ${i * 0.2}s`,
-                      transformOrigin: 'bottom'
-                    }}
-                  />
-                ))}
-              </span>
-            </p>
+if (loading) {
+  return (
+    <div className="fixed inset-0 bg-white/90 backdrop-blur-sm z-50 flex items-center justify-center">
+      <div className="text-center max-w-md px-6">
+        {/* Animated medical-themed spinner */}
+        <motion.div
+          key="spinner"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+            rotate: 360,
+          }}
+          transition={{
+            rotate: {
+              duration: 2,
+              repeat: Infinity,
+              ease: "linear",
+            },
+            opacity: { duration: 0.4 },
+            scale: { duration: 0.4 }
+          }}
+          className="mb-6 mx-auto w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-300 rounded-full flex items-center justify-center shadow-lg"
+        >
+          <motion.div
+            animate={{ 
+              scale: [1, 1.1, 1],
+              opacity: [0.8, 1, 0.8]
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            <GiStethoscope className="w-8 h-8 text-white" />
+          </motion.div>
+        </motion.div>
+
+        {/* Content */}
+        <div className="space-y-4">
+          <h3 className="text-2xl font-bold text-gray-800">
+            <span className="bg-gradient-to-r from-indigo-600 to-indigo-400 bg-clip-text text-transparent">
+              Loading Medical Team
+            </span>
+          </h3>
+          
+          <p className="text-gray-600">
+            Preparing OT details for you
+          </p>
+          
+          {/* Enhanced bouncing dots */}
+          <div className="flex justify-center mt-6">
+            {[0, 1, 2].map((i) => (
+              <motion.span
+                key={i}
+                className="inline-block w-3 h-3 bg-indigo-400 rounded-full mx-1"
+                animate={{
+                  y: [0, -12, 0],
+                  opacity: [0.6, 1, 0.6],
+                  scale: [1, 1.2, 1]
+                }}
+                transition={{
+                  duration: 1.2,
+                  repeat: Infinity,
+                  delay: i * 0.2,
+                  ease: "easeInOut"
+                }}
+              />
+            ))}
           </div>
         </div>
+
+        {/* Subtle floating elements in background */}
+        <motion.div 
+          className="absolute top-1/4 left-1/4 w-8 h-8 rounded-full bg-indigo-100/50"
+          animate={{
+            y: [0, 15, 0],
+            opacity: [0.3, 0.6, 0.3]
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div 
+          className="absolute bottom-1/4 right-1/4 w-6 h-6 rounded-full bg-indigo-100/50"
+          animate={{
+            y: [0, -10, 0],
+            opacity: [0.4, 0.7, 0.4]
+          }}
+          transition={{
+            duration: 5,
+            repeat: Infinity,
+            delay: 1,
+            ease: "easeInOut"
+          }}
+        />
       </div>
-    );
-  }
+    </div>
+  );
+}
   
   if (error) return (
     <div className="max-w-5xl mx-auto p-6">
