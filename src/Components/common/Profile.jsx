@@ -281,14 +281,14 @@ const Profile = () => {
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 0.5 }}
-                                    className="flex justify-end gap-3 pt-4"
+                                    className="flex justify-end gap-3 pt-1"
                                 >
                                     <motion.button
                                         type="button"
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
                                         onClick={() => setIsEditing(false)}
-                                        className="px-6 py-2 border border-gray-300 rounded-full font-medium text-gray-700 hover:bg-gray-100 transition flex items-center gap-2"
+                                        className="md:px-6 px-4 py-1 md:py-2 border border-gray-300 rounded-full font-medium text-gray-700 hover:bg-gray-100 transition flex items-center gap-2"
                                     >
                                         <FiX /> Cancel
                                     </motion.button>
@@ -309,7 +309,7 @@ const Profile = () => {
                                     >
 
 
-                                        <motion.span className="relative z-10 flex items-center gap-2">
+                                        <motion.span className="relative z-10 flex flex-row items-center gap-2">
                                             {isLoading ? (
                                                 <>
                                                     <motion.span
