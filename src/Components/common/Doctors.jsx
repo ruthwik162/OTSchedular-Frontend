@@ -5,17 +5,19 @@ import { GiBrain, GiBoneKnife, GiStethoscope } from 'react-icons/gi';
 import { MdWork, MdVerified } from 'react-icons/md';
 import { PulseLoader } from 'react-spinners';
 import { motion } from 'framer-motion';
+import { useAppContext } from '../../AppContext/AppContext';
 
 
 const DoctorsPage = () => {
     const [doctors, setDoctors] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const {URL} = useAppContext();
 
     useEffect(() => {
         const fetchDoctors = async () => {
             try {
-                const response = await fetch('http://localhost:8087/user/role/doctor');
+                const response = await fetch(`${URL}/user/role/doctor`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch doctors');
                 }

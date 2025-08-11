@@ -53,7 +53,7 @@ const DoctorDashboard = () => {
     }
   };
 
-  // File download helper
+  // File download helper a
   const downloadFile = (url, filename) => {
     fetch(url)
       .then(res => res.blob())
