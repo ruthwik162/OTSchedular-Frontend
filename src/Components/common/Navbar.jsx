@@ -15,7 +15,7 @@ const Navbar = () => {
     { name: 'Home', path: '/', icon: <FiHome size={18} /> },
     { name: 'About', path: '/about', icon: <FiUsers size={18} /> },
     { name: 'Departments', path: '/department', icon: <FiLayers size={18} /> },
-    { name: 'Doctors', path: '/faculty', icon: <FiUsers size={18} /> },
+    { name: 'Doctors', path: '/doctors', icon: <FiUsers size={18} /> },
     ...(user ? [{ name: 'My Appointments', path: '/my-appointment', icon: <FiCalendar size={18} /> }] : [])
   ];
 
