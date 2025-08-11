@@ -7,7 +7,7 @@ const Footer = () => {
     return (
         <div className="w-full p-2 overflow-x-hidden">
             <footer className="p-5 rounded-2xl md:px-10 lg:px-16 w-full text-gray-900 bg-[#e6f7f6] dark:bg-gray-700 dark:text-gray-100">
-                <div className="flex flex-col md:flex-row justify-between w-full gap-5 md:gap-10 border-b border-gray-300 dark:border-gray-600 pb-10">
+                <div className="flex flex-col md:flex-row justify-between w-full gap-5 sm:gap-5 md:gap-10 border-b border-gray-300 dark:border-gray-600 pb-10">
                     
                     {/* Left Section */}
                     <div className="max-w-sm md:max-w-md w-full">
@@ -18,7 +18,7 @@ const Footer = () => {
                                 src={assets.Banner} // Replace with MediCare hospital logo
                                 alt="MediCare Logo"
                             />
-                            <p className="text-sm text-gray-800 dark:text-gray-200 text-center sm:text-left px-2 sm:px-0">
+                            <p className="text-sm text-gray-800 dark:text-gray-200 text-center  sm:text-left px-2 sm:px-0">
                                 MediCare Hospital is committed to providing compassionate care with world-class medical facilities and expert healthcare professionals.
                             </p>
                         </div>
@@ -39,10 +39,10 @@ const Footer = () => {
                     </div>
 
                     {/* Right Section */}
-                    <div className="flex-1 flex flex-col sm:flex-row md:justify-end gap-6 md:gap-20">
+                    <div className="flex-1 flex flex-col sm:flex-row sm:justify-center  gap-10 sm:gap-5 md:gap-5 lg:gap-10">
                         
                         {/* Quick Links */}
-                        <div className='md:block hidden'>
+                        <div className='md:block hidden sm:hidden'>
                             <h2 className="font-semibold text-[#009688] mb-5">Quick Links</h2>
                             <ul className="text-sm space-y-2">
                                 <li><Link to="#">Home</Link></li>
@@ -99,7 +99,7 @@ const Footer = () => {
                     </p>
                     <div className="flex items-center gap-2 text-sm">
                         <p>Made with</p>
-                        <FiHeart className="text-red-500" />
+                        <FiHeart className="text-red-500" /> <p>By Nagaruthwik</p>
                         <p>for Better Health</p>
                     </div>
                 </div>
