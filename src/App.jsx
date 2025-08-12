@@ -12,6 +12,8 @@ import About from './Components/common/About'
 import PatientDashboard from './Pages/PatientDashboard'
 import DoctorDashboard from './Pages/DoctorDashboard' // import doctor dashboard
 import Doctors from './Components/common/Doctors'
+import Booking from './Components/common/Booking'
+import BookingDoctor from './Components/common/BookingDoctor' // import booking doctor component
 
 const App = () => {
   const { showUserLogin } = useAppContext()
@@ -37,7 +39,8 @@ const App = () => {
         <Route path='/department' element={<Department />} />
         <Route path='/about' element={<About />} />
         <Route path='/doctors' element={<Doctors />} />
-
+        <Route path='/booking' element={<Booking/>}/>
+        <Route path='/booking-doctor/:email' element={<BookingDoctor/>}/>
         {/* Conditionally render dashboard based on role */}
         <Route
           path='/my-appointment'

@@ -1,72 +1,90 @@
 import React, { useState, useEffect } from 'react';
-import { FaUserMd, FaHospitalSymbol, FaPhone, FaEnvelope, FaCalendarAlt, FaStar } from 'react-icons/fa';
-import { FiLoader } from 'react-icons/fi';
-import { GiBrain, GiBoneKnife, GiStethoscope } from 'react-icons/gi';
-import { MdWork, MdVerified } from 'react-icons/md';
+import { FaUserMd, FaHospitalSymbol, FaPhone, FaEnvelope, FaCalendarAlt, FaStar, FaClinicMedical } from 'react-icons/fa';
+import { GiBrain, GiBoneKnife, GiStethoscope, GiHealthNormal, GiMedicines } from 'react-icons/gi';
+import { MdWork, MdVerified, MdLocalHospital } from 'react-icons/md';
+import { RiHeartPulseFill } from 'react-icons/ri';
+import { BsClipboard2Pulse } from 'react-icons/bs';
 import { PulseLoader } from 'react-spinners';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../AppContext/AppContext';
 
-
 const DoctorsPage = () => {
-    const [doctors, setDoctors] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const {URL} = useAppContext();
+  const [doctors, setDoctors] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const {URL} = useAppContext();
 
-    useEffect(() => {
-        const fetchDoctors = async () => {
-            try {
-                const response = await fetch(`${URL}/user/role/doctor`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch doctors');
-                }
-                const data = await response.json();
-                setDoctors(data);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchDoctors();
-    }, []);
-
-    const getDepartmentIcon = (department) => {
-        switch (department?.toLowerCase()) {
-            case 'neurology':
-            case 'neuro':
-                return <GiBrain className="text-purple-600 text-2xl" />;
-            case 'ortho':
-            case 'orthopedic':
-                return <GiBoneKnife className="text-blue-600 text-2xl" />;
-            default:
-                return <GiStethoscope className="text-green-600 text-2xl" />;
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        const response = await fetch(`${URL}/user/role/doctor`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch doctors');
         }
+        const data = await response.json();
+        setDoctors(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    const getDepartmentColor = (department) => {
-        switch (department?.toLowerCase()) {
-            case 'neurology':
-            case 'neuro':
-                return 'bg-purple-100 text-purple-800';
-            case 'ortho':
-            case 'orthopedic':
-                return 'bg-blue-100 text-blue-800';
-            default:
-                return 'bg-green-100 text-green-800';
-        }
-    };
+    fetchDoctors();
+  }, []);
 
-    const formatExperience = (exp) => {
-        if (!exp) return 'Experience not specified';
-        if (typeof exp === 'number') return `${exp} years experience`;
-        if (exp.includes('years')) return exp;
-        return `${exp} years experience`;
-    };
+  const getDepartmentIcon = (department) => {
+    switch (department?.toLowerCase()) {
+      case 'neurology':
+      case 'neuro':
+        return <GiBrain className="text-purple-600 text-2xl" />;
+      case 'ortho':
+      case 'orthopedic':
+        return <GiBoneKnife className="text-blue-600 text-2xl" />;
+      case 'cardiology':
+        return <RiHeartPulseFill className="text-red-600 text-2xl" />;
+      case 'general':
+        return <GiStethoscope className="text-green-600 text-2xl" />;
+      case 'pediatrics':
+        return <FaClinicMedical className="text-pink-600 text-2xl" />;
+      case 'surgery':
+        return <GiMedicines className="text-indigo-600 text-2xl" />;
+      default:
+        return <BsClipboard2Pulse className="text-teal-600 text-2xl" />;
+    }
+  };
 
-    if (loading) {
+  const getDepartmentColor = (department) => {
+    switch (department?.toLowerCase()) {
+      case 'neurology':
+      case 'neuro':
+        return 'bg-purple-100 text-purple-800 border-purple-200';
+      case 'ortho':
+      case 'orthopedic':
+        return 'bg-blue-100 text-blue-800 border-blue-200';
+      case 'cardiology':
+        return 'bg-red-100 text-red-800 border-red-200';
+      case 'general':
+        return 'bg-green-100 text-green-800 border-green-200';
+      case 'pediatrics':
+        return 'bg-pink-100 text-pink-800 border-pink-200';
+      case 'surgery':
+        return 'bg-indigo-100 text-indigo-800 border-indigo-200';
+      default:
+        return 'bg-teal-100 text-teal-800 border-teal-200';
+    }
+  };
+
+  const formatExperience = (exp) => {
+    if (!exp) return 'Experience not specified';
+    if (typeof exp === 'number') return `${exp} years experience`;
+    if (exp.includes('years')) return exp;
+    return `${exp} years experience`;
+  };
+
+  if (loading) {
         return (
             <div className="fixed inset-0 bg-white/90 backdrop-blur-sm z-50 flex items-center justify-center">
                 <div className="text-center max-w-md px-6">
@@ -170,140 +188,224 @@ const DoctorsPage = () => {
         );
     }
 
-    if (error) {
-        return (
-            <div className="flex justify-center items-center h-screen">
-                <div className="text-center p-6 bg-red-50 rounded-lg max-w-md">
-                    <FaHospitalSymbol className="mx-auto text-4xl text-red-500 mb-4" />
-                    <h3 className="text-xl font-semibold text-red-600">Error Loading Doctors</h3>
-                    <p className="text-gray-600 mt-2">{error}</p>
-                    <button
-                        onClick={() => window.location.reload()}
-                        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-                    >
-                        Try Again
-                    </button>
-                </div>
-            </div>
-        );
-    }
-
+  if (error) {
     return (
-        <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl mt-20 mx-auto">
-                {/* Header */}
-                <div className="text-center mb-12">
-                    <div className="inline-flex items-center justify-center p-4 bg-white rounded-full shadow-lg mb-4">
-                        <FaHospitalSymbol className="text-4xl text-blue-600" />
+      <div className="flex justify-center items-center h-screen bg-gradient-to-br from-blue-50 to-white">
+        <motion.div 
+          initial={{ scale: 0.9 }}
+          animate={{ scale: 1 }}
+          className="text-center p-8 bg-white rounded-xl shadow-lg max-w-md border border-red-100"
+        >
+          <div className="inline-flex items-center justify-center p-4 bg-red-100 rounded-full mb-4">
+            <MdLocalHospital className="text-3xl text-red-500" />
+          </div>
+          <h3 className="text-2xl font-semibold text-red-600 mb-2">Error Loading Doctors</h3>
+          <p className="text-gray-600 mb-6">{error}</p>
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => window.location.reload()}
+            className="px-6 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all"
+          >
+            Try Again
+          </motion.button>
+        </motion.div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-12 px-4 sm:px-6 lg:px-8">
+      {/* Floating decorative elements */}
+      <div className="fixed top-20 left-10 opacity-10 -z-10">
+        <GiStethoscope className="text-9xl text-blue-300" />
+      </div>
+      <div className="fixed bottom-20 right-10 opacity-10 -z-10">
+        <GiHealthNormal className="text-9xl text-blue-300" />
+      </div>
+      
+      <div className="max-w-7xl mx-auto relative">
+        {/* Animated background elements */}
+        <motion.div 
+          animate={{ x: [0, 20, 0] }}
+          transition={{ duration: 8, repeat: Infinity }}
+          className="absolute -top-16 -left-16 w-32 h-32 rounded-full bg-blue-100 opacity-20 blur-xl"
+        />
+        <motion.div 
+          animate={{ y: [0, 20, 0] }}
+          transition={{ duration: 10, repeat: Infinity, delay: 2 }}
+          className="absolute -bottom-16 -right-16 w-40 h-40 rounded-full bg-purple-100 opacity-20 blur-xl"
+        />
+        
+        {/* Header */}
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16 relative"
+        >
+          <motion.div 
+            whileHover={{ rotate: 10 }}
+            className="inline-flex items-center justify-center p-6 bg-white rounded-full shadow-lg mb-6 border-2 border-blue-100"
+          >
+            <FaHospitalSymbol className="text-5xl text-blue-600" />
+          </motion.div>
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-3 bg-clip-text  bg-gradient-to-r from-blue-600 to-purple-600">
+            Meet Our Specialist Doctors
+          </h1>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto relative">
+            <span className="relative z-10 px-2 bg-gradient-to-r from-blue-50 to-white">
+              Highly qualified medical professionals dedicated to your health and wellbeing
+            </span>
+            <span className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-300 to-transparent top-1/2 -z-0" />
+          </p>
+          
+          {/* Decorative dots */}
+          <div className="absolute -top-8 right-1/4 w-3 h-3 rounded-full bg-blue-400 opacity-70" />
+          <div className="absolute -bottom-4 left-1/4 w-2 h-2 rounded-full bg-purple-400 opacity-70" />
+        </motion.div>
+
+        {/* Doctors Grid */}
+        {doctors.length === 0 ? (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center py-16 bg-white rounded-xl shadow-sm border border-gray-100"
+          >
+            <FaUserMd className="mx-auto text-5xl text-gray-300 mb-4" />
+            <h3 className="text-xl font-medium text-gray-700">No Doctors Available</h3>
+            <p className="text-gray-500 mt-2">Please check back later</p>
+          </motion.div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {doctors.map((doctor, index) => (
+              <motion.div
+                key={doctor.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ y: -5 }}
+                className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100 relative group"
+              >
+                {/* Ribbon for verified doctors */}
+                {doctor.verified && (
+                  <div className="absolute -right-8 top-6 bg-blue-500 text-white text-xs font-bold px-8 py-1 transform rotate-45 z-10 shadow-md">
+                    Verified
+                  </div>
+                )}
+                
+                {/* Doctor Header with Image */}
+                <div className="relative h-48 bg-gradient-to-r from-blue-400 to-blue-600 overflow-hidden">
+                  {doctor.profileImageUrl ? (
+                    <img
+                      src={doctor.profileImageUrl}
+                      alt={doctor.username}
+                      className="w-full h-full object-cover opacity-90 group-hover:opacity-80 transition-opacity"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-indigo-900">
+                      <FaUserMd className="text-6xl text-white opacity-80" />
                     </div>
-                    <h1 className="text-4xl font-bold text-gray-800 mb-2">Meet Our Specialist Doctors</h1>
-                    <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                        Highly qualified medical professionals dedicated to your health and wellbeing
-                    </p>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h2 className="text-xl font-bold text-white">{doctor.username}</h2>
+                    <div className="flex items-center">
+                      <MdVerified className="text-blue-300 mr-1" />
+                      <span className="text-sm text-blue-200">{doctor.designation}</span>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Doctors Grid */}
-                {doctors.length === 0 ? (
-                    <div className="text-center py-16 bg-white rounded-xl shadow-sm">
-                        <FaUserMd className="mx-auto text-5xl text-gray-300 mb-4" />
-                        <h3 className="text-xl font-medium text-gray-700">No Doctors Available</h3>
-                        <p className="text-gray-500 mt-2">Please check back later</p>
+                {/* Doctor Details */}
+                <div className="p-6 relative">
+                  {/* Department Badge */}
+                  <div className={`absolute -top-5 right-6 px-3 py-1 rounded-full text-sm font-semibold flex items-center border ${getDepartmentColor(doctor.department)} shadow-sm`}>
+                    {getDepartmentIcon(doctor.department)}
+                    <span className="ml-2 capitalize">
+                      {doctor.department?.toLowerCase() === 'ortho' ? 'Orthopedics' : 
+                       doctor.department?.toLowerCase() === 'neuro' ? 'Neurology' : 
+                       doctor.department || 'General'}
+                    </span>
+                  </div>
+
+                  {/* Experience and Rating */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center text-gray-600">
+                      <MdWork className="mr-2 text-blue-500" />
+                      <span>{formatExperience(doctor.experience)}</span>
                     </div>
-                ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {doctors.map((doctor) => (
-                            <div
-                                key={doctor.id}
-                                className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-                            >
-                                {/* Doctor Header with Image */}
-                                <div className="relative bg-gradient-to-r from-blue-400 to-blue-600">
-                                    {doctor.profileImageUrl ? (
-                                        <img
-                                            src={doctor.profileImageUrl}
-                                            alt={doctor.username}
-                                            className="w-full h-full bg-indigo-900 object-cover opacity-90"
-                                        />
-                                    ) : (
-                                        <div className="w-full h-full flex items-center justify-center">
-                                            <FaUserMd className="text-6xl text-white opacity-80" />
-                                        </div>
-                                    )}
-                                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent h-20">
-                                        <div className="absolute bottom-3 left-4">
-                                            <h2 className="text-xl font-bold text-white">{doctor.username}</h2>
-                                            <div className="flex items-center">
-                                                <MdVerified className="text-blue-300 mr-1" />
-                                                <span className="text-sm text-blue-200">{doctor.designation}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Doctor Details */}
-                                <div className="p-6 relative">
-                                    {/* Department Badge */}
-                                    <div className={`absolute -top-5 right-6 px-3 py-1 rounded-full text-sm font-semibold flex items-center ${getDepartmentColor(doctor.department)}`}>
-                                        {getDepartmentIcon(doctor.department)}
-                                        <span className="ml-2 capitalize">
-                                            {doctor.department?.toLowerCase() === 'ortho' ? 'Orthopedics' : doctor.department || 'General'}
-                                        </span>
-                                    </div>
-
-                                    {/* Experience and Rating */}
-                                    <div className="flex items-center justify-between mb-4">
-                                        <div className="flex items-center text-gray-600">
-                                            <MdWork className="mr-2 text-blue-500" />
-                                            <span>{formatExperience(doctor.experience)}</span>
-
-                                        </div>
-                                        <div className="flex items-center text-yellow-500">
-                                            <div className="flex items-center">
-                                                {[1, 2, 3, 4, 5].map((star) => (
-                                                    <FaStar
-                                                        key={star}
-                                                        className={`${star <= 4 ? 'text-yellow-400' : 'text-gray-300'} text-sm`}
-                                                    />
-                                                ))}
-                                            </div>
-                                            <span>4.8</span>
-                                        </div>
-                                    </div>
-
-                                    {/* Contact Information */}
-                                    <div className="space-y-3 mb-6">
-                                        <div className="flex items-center text-gray-700">
-                                            <FaPhone className="mr-3 text-blue-500" />
-                                            <a href={`tel:${doctor.mobile}`} className="hover:text-blue-600 transition">
-                                                {doctor.mobile || 'Not provided'}
-                                            </a>
-                                        </div>
-                                        <div className="flex items-center text-gray-700">
-                                            <FaEnvelope className="mr-3 text-blue-500" />
-                                            <a href={`mailto:${doctor.email}`} className="hover:text-blue-600 transition truncate">
-                                                {doctor.email || 'Not provided'}
-                                            </a>
-                                        </div>
-                                        {doctor.age && (
-                                            <div className="flex items-center text-gray-700">
-                                                <FaCalendarAlt className="mr-3 text-blue-500" />
-                                                <span>{doctor.age} years old</span>
-                                            </div>
-                                        )}
-                                    </div>
-
-                                    {/* Decorative Elements */}
-                                    <div className="absolute bottom-2 right-2 opacity-10">
-                                        <GiStethoscope className="text-6xl text-blue-400" />
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
+                    <div className="flex items-center">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <FaStar 
+                          key={star} 
+                          className={`${star <= 4 ? 'text-yellow-400' : 'text-gray-300'} text-sm`} 
+                        />
+                      ))}
                     </div>
-                )}
-            </div>
+                  </div>
+
+                  {/* Contact Information */}
+                  <div className="space-y-3 mb-6">
+                    <div className="flex items-center text-gray-700">
+                      <FaPhone className="mr-3 text-blue-500 min-w-[16px]" />
+                      <a 
+                        href={`tel:${doctor.mobile}`} 
+                        className="hover:text-blue-600 transition hover:underline truncate"
+                      >
+                        {doctor.mobile || 'Not provided'}
+                      </a>
+                    </div>
+                    <div className="flex items-center text-gray-700">
+                      <FaEnvelope className="mr-3 text-blue-500 min-w-[16px]" />
+                      <a 
+                        href={`mailto:${doctor.email}`} 
+                        className="hover:text-blue-600 transition hover:underline truncate"
+                      >
+                        {doctor.email || 'Not provided'}
+                      </a>
+                    </div>
+                    {doctor.age && (
+                      <div className="flex items-center text-gray-700">
+                        <FaCalendarAlt className="mr-3 text-blue-500 min-w-[16px]" />
+                        <span>{doctor.age} years old</span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Action Button */}
+                  <motion.button 
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => navigate(`/booking-doctor/${doctor.email}`)}
+
+                    className="w-full py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg text-sm font-medium shadow-sm hover:shadow-md transition-all"
+                  >
+                    Book Appointment
+                  </motion.button>
+
+                  {/* Decorative Elements */}
+                  <div className="absolute bottom-2 right-2 opacity-5 group-hover:opacity-10 transition-opacity">
+                    <GiStethoscope className="text-6xl text-blue-400" />
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
+      </div>
+      
+      {/* Footer decoration */}
+      <div className="mt-16 text-center">
+        <div className="inline-flex items-center justify-center p-4 bg-white rounded-full shadow-lg mb-4 border border-blue-100">
+          <GiHealthNormal className="text-3xl text-blue-500" />
         </div>
-    );
+        <p className="text-gray-500 text-sm">
+          Trusted by thousands of patients worldwide
+        </p>
+      </div>
+    </div>
+  );
 };
 
 export default DoctorsPage;
