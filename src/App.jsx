@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 import Login from './Components/Auth/Login'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import { useAppContext } from './AppContext/AppContext'
 import Navbar from './Components/common/Navbar'
 import Footer from './Components/common/Footer'
@@ -18,6 +18,7 @@ import BookingDoctor from './Components/common/BookingDoctor' // import booking 
 const App = () => {
   const { showUserLogin } = useAppContext()
   const [user, setUser] = useState(null)
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user')
@@ -25,6 +26,16 @@ const App = () => {
       setUser(JSON.parse(storedUser))
     }
   }, [])
+
+
+  //used for redirecting
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const redirect = params.get("redirect");
+    if (redirect) {
+      navigate(redirect, { replace: true });
+    }
+  }, [navigate]);
 
   return (
     <div>
