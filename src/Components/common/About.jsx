@@ -189,7 +189,7 @@ const surgeons = [
 const About = () => {
     return (
         <motion.div
-            className="px-4 sm:px-6 lg:px-25 py-12"
+            className="px-4 sm:px-6 lg:px-29 py-12"
             style={{ backgroundColor: colors.lightBg }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

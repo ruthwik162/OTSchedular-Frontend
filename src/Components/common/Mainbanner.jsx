@@ -50,12 +50,12 @@ const MedicalBanner = () => {
 
     return (
         <motion.div
-            className='relative mt-15 md:mt-20 py-10 px-4 md:px-10 z-[0]'
+            className='relative mt-15 md:mt-20 py-10 px-4 md:px-10 lg:px-29 z-[0]'
             initial="hidden"
             animate="visible"
             variants={containerVariants}
         >
-            <div className='w-full max-w-7xl mx-auto flex items-center justify-center relative rounded-xl overflow-hidden bg-blue-900/10'>
+            <div className='w-full max-w-9xl mx-auto flex items-center justify-center relative rounded-xl overflow-hidden bg-blue-900/10'>
                 {/* Desktop Banner Image with Parallax Effect */}
                 <motion.img
                     src={assets.Mainbanner}  // Update with your medical banner image
@@ -83,7 +83,7 @@ const MedicalBanner = () => {
                 >
                     {/* Headline */}
                     <motion.h1
-                        className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-center md:text-left max-w-2xl leading-tight lg:leading-[3.75rem] bg-gradient-to-r from-indigo-200 via-pink-300 to-red-400 bg-clip-text text-transparent drop-shadow-lg"
+                        className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-center md:text-left max-w-2xl leading-tight lg:leading-[3.75rem] bg-gradient-to-r from-violet-800  to-blue-600 bg-clip-text text-transparent drop-shadow-lg"
                         variants={itemVariants}
                     >
                         Compassionate Care, <br className='hidden md:block' /> Advanced Medicine

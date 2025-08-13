@@ -251,7 +251,7 @@ const Department = () => {
   ];
 
   return (
-    <div className="container mx-auto px-4 mt-20 py-12 max-w-7xl">
+    <div className="container mx-auto px-4 mt-20 py-12 md:px-29 max-w-9xl">
       {/* Hero Section */}
       <motion.div
         className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-3xl p-8 md:p-12 mb-12 text-white relative overflow-hidden"
