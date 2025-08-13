@@ -99,19 +99,38 @@ const MedicalBanner = () => {
 
                     {/* Features */}
                     <motion.div
-                        className='flex flex-grid justify-center md:justify-start  gap-4 mt-6'
+                        className="flex overflow-x-auto pb-2 md:pb-0 scrollbar-hide w-full" // Horizontal scroll for mobile
                         variants={itemVariants}
                     >
-                        {features.map((feature, index) => (
-                            <motion.div
-                                key={index}
-                                className='flex items-center gap-1 bg-white/10 backdrop-blur-sm px-1 py-1 md:px-4 md:py-2 rounded-lg border border-white/20'
-                                whileHover={{ y: -3 }}
-                            >
-                                <span className='text-blue-100'>{feature.icon}</span>
-                                <span className='text-white text-sm md:text-base'>{feature.text}</span>
-                            </motion.div>
-                        ))}
+                        <div className="flex gap-2 sm:gap-3 md:gap-4 min-w-max w-full justify-center md:justify-start">
+                            {features.map((feature, index) => (
+                                <motion.div
+                                    key={index}
+                                    className="flex-shrink-0 flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 md:px-4 md:py-2.5 rounded-lg border border-white/20 transition-all duration-200"
+                                    whileHover={{
+                                        y: -3,
+                                        backgroundColor: 'rgba(255,255,255,0.15)',
+                                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
+                                    }}
+                                    whileTap={{ scale: 0.95 }}
+                                    initial={{ opacity: 0, x: -10 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{
+                                        delay: 0.2 + (index * 0.1),
+                                        type: "spring",
+                                        stiffness: 300,
+                                        damping: 15
+                                    }}
+                                >
+                                    <span className="text-blue-100 text-lg md:text-xl flex-shrink-0">
+                                        {feature.icon}
+                                    </span>
+                                    <span className="text-white text-sm md:text-base font-medium whitespace-nowrap">
+                                        {feature.text}
+                                    </span>
+                                </motion.div>
+                            ))}
+                        </div>
                     </motion.div>
 
                     {/* Buttons */}
@@ -125,7 +144,7 @@ const MedicalBanner = () => {
                             variants={buttonHover}
                         >
                             <Link
-                                to='/appointment'
+                                to='/doctors'
                                 className="group flex items-center justify-center gap-2 px-8 py-3 bg-blue-600 hover:bg-blue-700 transition-all rounded-lg text-white cursor-pointer shadow-lg w-full sm:w-auto"
                             >
                                 Book Appointment

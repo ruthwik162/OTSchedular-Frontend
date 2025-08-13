@@ -2,13 +2,14 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { FiHeart, FiMail, FiPhone, FiMapPin } from 'react-icons/fi'
 import { assets } from '../../assets/assets'
+import { HiOutlineHeart } from 'react-icons/hi2'
 
 const Footer = () => {
     return (
         <div className="w-full p-2 overflow-x-hidden">
             <footer className="p-5 rounded-2xl md:px-10 lg:px-16 w-full text-gray-900 bg-[#e6f7f6] dark:bg-gray-700 dark:text-gray-100">
-                <div className="flex flex-col md:flex-row justify-between w-full gap-5 sm:gap-5 md:gap-10 border-b border-gray-300 dark:border-gray-600 pb-10">
-                    
+                <div className="flex flex-col md:flex-row justify-between w-full gap-5 sm:gap-5 md:gap-10 border-b border-gray-300 dark:border-gray-600 pb-5">
+
                     {/* Left Section */}
                     <div className="max-w-sm md:max-w-md w-full">
                         {/* Logo and Description */}
@@ -40,7 +41,7 @@ const Footer = () => {
 
                     {/* Right Section */}
                     <div className="flex-1 flex flex-col sm:flex-row sm:justify-center  gap-10 sm:gap-5 md:gap-5 lg:gap-10">
-                        
+
                         {/* Quick Links */}
                         <div className='md:block hidden sm:hidden'>
                             <h2 className="font-semibold text-[#009688] mb-5">Quick Links</h2>
@@ -55,7 +56,7 @@ const Footer = () => {
 
                         {/* Contact Info */}
                         <div>
-                            <h2 className="font-semibold text-[#009688] mb-3">Contact Us</h2>
+                            <h2 className="font-semibold text-[#009688] mb-1">Contact Us</h2>
                             <div className="flex items-center gap-2 text-gray-800 dark:text-gray-200">
                                 <FiPhone className="text-[#009688] text-lg" />
                                 <p>+1-800-555-HEAL</p>
@@ -66,7 +67,7 @@ const Footer = () => {
                             </div>
                             <div className="flex items-center gap-2 text-gray-800 dark:text-gray-200">
                                 <FiMapPin className="text-[#009688] text-lg" />
-                                <p>123 Health St, Wellness City</p>
+                                <p>kakaji colony,chowrastha, Hanamkonda </p>
                             </div>
                         </div>
 
@@ -93,14 +94,16 @@ const Footer = () => {
                 </div>
 
                 {/* Footer Bottom */}
-                <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-10 px-4 py-4 text-gray-700 dark:text-gray-300 text-center">
+                <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-5 px-4 py-4 text-gray-700 dark:text-gray-300 text-center">
                     <p className="text-sm">
                         © {new Date().getFullYear()} MediCare Hospital. All Rights Reserved.
                     </p>
-                    <div className="flex items-center gap-2 text-sm">
-                        <p>Made with</p>
-                        <FiHeart className="text-red-500" /> <p>By Nagaruthwik</p>
-                        <p>for Better Health</p>
+                    <div className="flex flex-col md:flex-row  items-center gap-2 text-sm">
+                        <div className='flex items-center gap-2 justify-center mx-auto'>
+                            <p>Made with</p>
+                            <HiOutlineHeart className="text-indigo-500" />
+                        </div>
+                        <p>By Nagaruthwik for  Better Health</p>
                     </div>
                 </div>
             </footer>
