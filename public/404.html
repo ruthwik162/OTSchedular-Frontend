@@ -1,61 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <title>Redirecting...</title>
-  <meta name="robots" content="noindex" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background-color: #0f172a;
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      flex-direction: column;
-      text-align: center;
-    }
-    h1 {
-      font-size: 2rem;
-    }
-    p {
-      font-size: 1rem;
-      color: #94a3b8;
-    }
-  </style>
-  <script type="text/javascript">
-    (function () {
-      var pathSegmentsToKeep = 1;
-      var l = window.location;
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>OT Schedular Management</title>
+    <script type="text/javascript">
+      (function () {
+        const { protocol, host, pathname, search, hash } = window.location;
+        const pathSegments = pathname.split("/").filter(Boolean);
 
-      var newUrl =
-        l.protocol +
-        "//" +
-        l.hostname +
-        (l.port ? ":" + l.port : "") +
-        l.pathname
-          .split("/")
-          .slice(0, 1 + pathSegmentsToKeep)
-          .join("/") +
-        "/?/" +
-        l.pathname
-          .slice(1)
-          .split("/")
-          .slice(pathSegmentsToKeep)
-          .join("/")
-          .replace(/&/g, "~and~") +
-        (l.search ? "&" + l.search.slice(1).replace(/&/g, "~and~") : "") +
-        l.hash;
+        // Only redirect if deeper path exists (e.g., /hostels/room-details)
+        if (pathSegments.length > 1 && pathSegments[0] !== "?") {
+          const basePath = pathSegments.slice(0, 1).join("/");
+          const remainingPath = pathSegments.slice(1).join("/");
 
-      window.location.replace(newUrl);
-    })();
-  </script>
-</head>
-<body>
-  <h1>Redirecting...</h1>
-  <p>If you are not redirected automatically, <a href="/app">click here</a>.</p>
-</body>
+          const newUrl =
+            `${protocol}//${host}/${basePath}/?/${remainingPath}` +
+            (search ? "&" + search.slice(1).replace(/&/g, "~and~") : "") +
+            hash;
+
+          window.location.replace(newUrl);
+        }
+      })();
+    </script>
+  </head>
+  <body></body>
 </html>
