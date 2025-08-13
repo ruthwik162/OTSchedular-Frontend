@@ -545,7 +545,7 @@ const About = () => {
                 transition={{ duration: 0.6 }}
             >
                 <div className="absolute inset-0 opacity-10">
-                    <div className="absolute w-40 h-40 rounded-full bg-cyan-300 top-[-50px] right-[-50px]"></div>
+                    <div className="absolute w-50 h-50 rounded-full bg-cyan-300 top-[-170px] right-[-80px]  md:top-[-140px] md:right-[-50px]"></div>
                     <div className="absolute w-60 h-60 rounded-full bg-blue-300 bottom-[-100px] left-[-100px]"></div>
                 </div>
                 <div className="relative z-10">

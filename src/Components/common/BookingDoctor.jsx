@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaCalendarAlt, FaClock, FaUserMd, FaStethoscope, FaInfoCircle } from "react-icons/fa";
+import { FaCalendarAlt, FaClock, FaUserMd, FaStethoscope, FaInfoCircle, FaArrowLeft } from "react-icons/fa";
 import { MdEmail, MdDateRange, MdAccessTime } from "react-icons/md";
 import { useAppContext } from "../../AppContext/AppContext";
 import toast from "react-hot-toast";
 import { assets } from "../../assets/assets";
-import { FiLoader } from "react-icons/fi";
+import { FiLoader, FiSkipBack } from "react-icons/fi";
+import { GiStethoscope } from "react-icons/gi";
 
 const BookingDoctor = () => {
     const { email } = useParams();
@@ -179,6 +180,7 @@ const BookingDoctor = () => {
             transition={{ duration: 0.5 }}
             className="min-h-screen  py-2 md:py-2 lg:py-2 px-4 sm:px-6 lg:px-8"
         >
+            
             <div className="max-w-5xl mt-20 mx-auto">
                 {/* Enhanced Header */}
                 <motion.div
@@ -186,6 +188,7 @@ const BookingDoctor = () => {
                     animate={{ y: 0 }}
                     className="text-center mb-12 relative"
                 >
+                    
                     <div className="absolute top-4 md:-left-6 w-30 h-30 bg-blue-100 rounded-full opacity-50"></div>
                     <div className="absolute right-4 -bottom-6 md:-right-6 w-20 h-20 bg-indigo-100 rounded-full opacity-50"></div>
                     <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl relative z-10">
@@ -200,6 +203,7 @@ const BookingDoctor = () => {
                         <div className="w-16 h-1 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-full"></div>
                     </div>
                 </motion.div>
+                <button onClick={()=>navigate(-1)} className="font-bold cursor-pointer border-blue-200 text-violet-800 transform flex items-center pb-2 border-2 p-2 rounded-md justify-center gap-2"><FaArrowLeft />Go Back</button>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     {/* Doctor Info Card */}
@@ -211,7 +215,7 @@ const BookingDoctor = () => {
                             <div className="flex items-center space-x-4">
                                 <div className="flex-shrink-0">
                                     <div className="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center">
-                                        <FaUserMd className="text-blue-500 text-3xl" />
+                                        <img src={doctor.profileImageUrl} alt="" />
                                     </div>
                                 </div>
                                 <div>
@@ -238,6 +242,7 @@ const BookingDoctor = () => {
                                 </p>
                             </div>
                         </div>
+                        
 
                         {/* Centered and smaller doctor image */}
                         <div className="mt-auto px-6 pb-6 flex justify-center">
@@ -249,6 +254,7 @@ const BookingDoctor = () => {
                                 />
                             </div>
                         </div>
+                        
                     </motion.div>
 
                     {/* Booking Form Card */}
@@ -360,7 +366,7 @@ const BookingDoctor = () => {
                                     whileTap={{ scale: 0.98 }}
                                     type="submit"
                                     disabled={submitting}
-                                    className="w-full py-3 px-6 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center"
+                                    className="w-full py-3 cursor-pointer px-6 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center"
                                 >
                                     {submitting ? (
                                         <>

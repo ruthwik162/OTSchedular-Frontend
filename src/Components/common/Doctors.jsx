@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaUserMd, FaHospitalSymbol, FaPhone, FaEnvelope, FaCalendarAlt, FaStar, FaClinicMedical } from 'react-icons/fa';
+import { FaUserMd, FaHospitalSymbol, FaPhone, FaEnvelope, FaCalendarAlt, FaStar, FaClinicMedical, FaPhoneAlt } from 'react-icons/fa';
 import { GiBrain, GiBoneKnife, GiStethoscope, GiHealthNormal, GiMedicines } from 'react-icons/gi';
 import { MdWork, MdVerified, MdLocalHospital } from 'react-icons/md';
 import { RiHeartPulseFill } from 'react-icons/ri';
@@ -14,7 +14,7 @@ const DoctorsPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const {URL} = useAppContext();
+  const { URL } = useAppContext();
 
   useEffect(() => {
     const fetchDoctors = async () => {
@@ -85,113 +85,113 @@ const DoctorsPage = () => {
   };
 
   if (loading) {
-        return (
-            <div className="fixed inset-0 bg-white/90 backdrop-blur-sm z-50 flex items-center justify-center">
-                <div className="text-center max-w-md px-6">
-                    {/* Animated medical-themed spinner */}
-                    <motion.div
-                        key="spinner"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{
-                            opacity: 1,
-                            scale: 1,
-                            rotate: 360,
-                        }}
-                        transition={{
-                            rotate: {
-                                duration: 2,
-                                repeat: Infinity,
-                                ease: "linear",
-                            },
-                            opacity: { duration: 0.4 },
-                            scale: { duration: 0.4 }
-                        }}
-                        className="mb-6 mx-auto w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-300 rounded-full flex items-center justify-center shadow-lg"
-                    >
-                        <motion.div
-                            animate={{
-                                scale: [1, 1.1, 1],
-                                opacity: [0.8, 1, 0.8]
-                            }}
-                            transition={{
-                                duration: 1.5,
-                                repeat: Infinity,
-                                ease: "easeInOut"
-                            }}
-                        >
-                            <GiStethoscope className="w-8 h-8 text-white" />
-                        </motion.div>
-                    </motion.div>
+    return (
+      <div className="fixed inset-0 bg-white/90 backdrop-blur-sm z-50 flex items-center justify-center">
+        <div className="text-center max-w-md px-6">
+          {/* Animated medical-themed spinner */}
+          <motion.div
+            key="spinner"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              rotate: 360,
+            }}
+            transition={{
+              rotate: {
+                duration: 2,
+                repeat: Infinity,
+                ease: "linear",
+              },
+              opacity: { duration: 0.4 },
+              scale: { duration: 0.4 }
+            }}
+            className="mb-6 mx-auto w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-300 rounded-full flex items-center justify-center shadow-lg"
+          >
+            <motion.div
+              animate={{
+                scale: [1, 1.1, 1],
+                opacity: [0.8, 1, 0.8]
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <GiStethoscope className="w-8 h-8 text-white" />
+            </motion.div>
+          </motion.div>
 
-                    {/* Content */}
-                    <div className="space-y-4">
-                        <h3 className="text-2xl font-bold text-gray-800">
-                            <span className="bg-gradient-to-r from-indigo-600 to-indigo-400 bg-clip-text text-transparent">
-                                Loading Medical Team
-                            </span>
-                        </h3>
+          {/* Content */}
+          <div className="space-y-4">
+            <h3 className="text-2xl font-bold text-gray-800">
+              <span className="bg-gradient-to-r from-indigo-600 to-indigo-400 bg-clip-text text-transparent">
+                Loading Medical Team
+              </span>
+            </h3>
 
-                        <p className="text-gray-600">
-                            Preparing specialist doctors for you
-                        </p>
+            <p className="text-gray-600">
+              Preparing specialist doctors for you
+            </p>
 
-                        {/* Enhanced bouncing dots */}
-                        <div className="flex justify-center mt-6">
-                            {[0, 1, 2].map((i) => (
-                                <motion.span
-                                    key={i}
-                                    className="inline-block w-3 h-3 bg-indigo-400 rounded-full mx-1"
-                                    animate={{
-                                        y: [0, -12, 0],
-                                        opacity: [0.6, 1, 0.6],
-                                        scale: [1, 1.2, 1]
-                                    }}
-                                    transition={{
-                                        duration: 1.2,
-                                        repeat: Infinity,
-                                        delay: i * 0.2,
-                                        ease: "easeInOut"
-                                    }}
-                                />
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Subtle floating elements in background */}
-                    <motion.div
-                        className="absolute top-1/4 left-1/4 w-8 h-8 rounded-full bg-indigo-100/50"
-                        animate={{
-                            y: [0, 15, 0],
-                            opacity: [0.3, 0.6, 0.3]
-                        }}
-                        transition={{
-                            duration: 6,
-                            repeat: Infinity,
-                            ease: "easeInOut"
-                        }}
-                    />
-                    <motion.div
-                        className="absolute bottom-1/4 right-1/4 w-6 h-6 rounded-full bg-indigo-100/50"
-                        animate={{
-                            y: [0, -10, 0],
-                            opacity: [0.4, 0.7, 0.4]
-                        }}
-                        transition={{
-                            duration: 5,
-                            repeat: Infinity,
-                            delay: 1,
-                            ease: "easeInOut"
-                        }}
-                    />
-                </div>
+            {/* Enhanced bouncing dots */}
+            <div className="flex justify-center mt-6">
+              {[0, 1, 2].map((i) => (
+                <motion.span
+                  key={i}
+                  className="inline-block w-3 h-3 bg-indigo-400 rounded-full mx-1"
+                  animate={{
+                    y: [0, -12, 0],
+                    opacity: [0.6, 1, 0.6],
+                    scale: [1, 1.2, 1]
+                  }}
+                  transition={{
+                    duration: 1.2,
+                    repeat: Infinity,
+                    delay: i * 0.2,
+                    ease: "easeInOut"
+                  }}
+                />
+              ))}
             </div>
-        );
-    }
+          </div>
+
+          {/* Subtle floating elements in background */}
+          <motion.div
+            className="absolute top-1/4 left-1/4 w-8 h-8 rounded-full bg-indigo-100/50"
+            animate={{
+              y: [0, 15, 0],
+              opacity: [0.3, 0.6, 0.3]
+            }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          <motion.div
+            className="absolute bottom-1/4 right-1/4 w-6 h-6 rounded-full bg-indigo-100/50"
+            animate={{
+              y: [0, -10, 0],
+              opacity: [0.4, 0.7, 0.4]
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              delay: 1,
+              ease: "easeInOut"
+            }}
+          />
+        </div>
+      </div>
+    );
+  }
 
   if (error) {
     return (
       <div className="flex justify-center items-center h-screen bg-gradient-to-br from-blue-50 to-white">
-        <motion.div 
+        <motion.div
           initial={{ scale: 0.9 }}
           animate={{ scale: 1 }}
           className="text-center p-8 bg-white rounded-xl shadow-lg max-w-md border border-red-100"
@@ -201,7 +201,7 @@ const DoctorsPage = () => {
           </div>
           <h3 className="text-2xl font-semibold text-red-600 mb-2">Error Loading Doctors</h3>
           <p className="text-gray-600 mb-6">{error}</p>
-          <motion.button 
+          <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => window.location.reload()}
@@ -215,7 +215,43 @@ const DoctorsPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen max-w-9xl  py-12 px-4 sm:px-6 lg:px-29">
+
+      <motion.div
+        className="bg-gradient-to-r from-blue-600 to-blue-900 rounded-3xl  mt-20 p-8 md:p-12 mb-12 text-white relative overflow-hidden"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="absolute inset-0  bg-cover bg-center opacity-20" />
+        <div className="relative max-w-4xl mx-auto text-center">
+          <motion.h1
+            className="text-4xl md:text-5xl font-bold mb-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            Meet Our Specialist Doctors <span className="text-blue-200"></span>
+          </motion.h1>
+          <motion.p
+            className="text-lg md:text-xl mb-8 opacity-90"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            Highly qualified medical professionals dedicated to your health and wellbeing
+          </motion.p>
+          <motion.div
+            className="flex flex-wrap justify-center gap-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+          >
+
+            
+          </motion.div>
+        </div>
+      </motion.div>
       {/* Floating decorative elements */}
       <div className="fixed top-20 left-10 opacity-10 -z-10">
         <GiStethoscope className="text-9xl text-blue-300" />
@@ -223,51 +259,38 @@ const DoctorsPage = () => {
       <div className="fixed bottom-20 right-10 opacity-10 -z-10">
         <GiHealthNormal className="text-9xl text-blue-300" />
       </div>
-      
+
       <div className="max-w-7xl mx-auto relative">
         {/* Animated background elements */}
-        <motion.div 
+        <motion.div
           animate={{ x: [0, 20, 0] }}
           transition={{ duration: 8, repeat: Infinity }}
           className="absolute -top-16 -left-16 w-32 h-32 rounded-full bg-blue-100 opacity-20 blur-xl"
         />
-        <motion.div 
+        <motion.div
           animate={{ y: [0, 20, 0] }}
           transition={{ duration: 10, repeat: Infinity, delay: 2 }}
           className="absolute -bottom-16 -right-16 w-40 h-40 rounded-full bg-purple-100 opacity-20 blur-xl"
         />
-        
+
         {/* Header */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16 relative"
         >
-          <motion.div 
-            whileHover={{ rotate: 10 }}
-            className="inline-flex items-center justify-center p-6 bg-white rounded-full shadow-lg mb-6 border-2 border-blue-100"
-          >
-            <FaHospitalSymbol className="text-5xl text-blue-600" />
-          </motion.div>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-3 bg-clip-text  bg-gradient-to-r from-blue-600 to-purple-600">
-            Meet Our Specialist Doctors
-          </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto relative">
-            <span className="relative z-10 px-2 bg-gradient-to-r from-blue-50 to-white">
-              Highly qualified medical professionals dedicated to your health and wellbeing
-            </span>
-            <span className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-300 to-transparent top-1/2 -z-0" />
-          </p>
-          
+
+
+
           {/* Decorative dots */}
-          <div className="absolute -top-8 right-1/4 w-3 h-3 rounded-full bg-blue-400 opacity-70" />
-          <div className="absolute -bottom-4 left-1/4 w-2 h-2 rounded-full bg-purple-400 opacity-70" />
+          <div className="absolute -top-15 right-1/4 w-30 h-30 rounded-full bg-blue-400 opacity-70" />
+          <div className="absolute -bottom-0 left-1/4 w-20 h-20 rounded-full bg-purple-400 opacity-70" />
         </motion.div>
 
         {/* Doctors Grid */}
         {doctors.length === 0 ? (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="text-center py-16 bg-white rounded-xl shadow-sm border border-gray-100"
@@ -293,9 +316,9 @@ const DoctorsPage = () => {
                     Verified
                   </div>
                 )}
-                
+
                 {/* Doctor Header with Image */}
-                <div className="relative h-48 bg-gradient-to-r from-blue-400 to-blue-600 overflow-hidden">
+                <div className="relative h-70 bg-gradient-to-r from-blue-400 to-blue-600 overflow-hidden">
                   {doctor.profileImageUrl ? (
                     <img
                       src={doctor.profileImageUrl}
@@ -323,9 +346,9 @@ const DoctorsPage = () => {
                   <div className={`absolute -top-5 right-6 px-3 py-1 rounded-full text-sm font-semibold flex items-center border ${getDepartmentColor(doctor.department)} shadow-sm`}>
                     {getDepartmentIcon(doctor.department)}
                     <span className="ml-2 capitalize">
-                      {doctor.department?.toLowerCase() === 'ortho' ? 'Orthopedics' : 
-                       doctor.department?.toLowerCase() === 'neuro' ? 'Neurology' : 
-                       doctor.department || 'General'}
+                      {doctor.department?.toLowerCase() === 'ortho' ? 'Orthopedics' :
+                        doctor.department?.toLowerCase() === 'neuro' ? 'Neurology' :
+                          doctor.department || 'General'}
                     </span>
                   </div>
 
@@ -337,9 +360,9 @@ const DoctorsPage = () => {
                     </div>
                     <div className="flex items-center">
                       {[1, 2, 3, 4, 5].map((star) => (
-                        <FaStar 
-                          key={star} 
-                          className={`${star <= 4 ? 'text-yellow-400' : 'text-gray-300'} text-sm`} 
+                        <FaStar
+                          key={star}
+                          className={`${star <= 4 ? 'text-yellow-400' : 'text-gray-300'} text-sm`}
                         />
                       ))}
                     </div>
@@ -349,8 +372,8 @@ const DoctorsPage = () => {
                   <div className="space-y-3 mb-6">
                     <div className="flex items-center text-gray-700">
                       <FaPhone className="mr-3 text-blue-500 min-w-[16px]" />
-                      <a 
-                        href={`tel:${doctor.mobile}`} 
+                      <a
+                        href={`tel:${doctor.mobile}`}
                         className="hover:text-blue-600 transition hover:underline truncate"
                       >
                         {doctor.mobile || 'Not provided'}
@@ -358,8 +381,8 @@ const DoctorsPage = () => {
                     </div>
                     <div className="flex items-center text-gray-700">
                       <FaEnvelope className="mr-3 text-blue-500 min-w-[16px]" />
-                      <a 
-                        href={`mailto:${doctor.email}`} 
+                      <a
+                        href={`mailto:${doctor.email}`}
                         className="hover:text-blue-600 transition hover:underline truncate"
                       >
                         {doctor.email || 'Not provided'}
@@ -374,12 +397,12 @@ const DoctorsPage = () => {
                   </div>
 
                   {/* Action Button */}
-                  <motion.button 
+                  <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => navigate(`/booking-doctor/${doctor.email}`)}
 
-                    className="w-full py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg text-sm font-medium shadow-sm hover:shadow-md transition-all"
+                    className="w-full py-2 cursor-pointer bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg text-sm font-medium shadow-sm hover:shadow-md transition-all"
                   >
                     Book Appointment
                   </motion.button>
@@ -393,16 +416,6 @@ const DoctorsPage = () => {
             ))}
           </div>
         )}
-      </div>
-      
-      {/* Footer decoration */}
-      <div className="mt-16 text-center">
-        <div className="inline-flex items-center justify-center p-4 bg-white rounded-full shadow-lg mb-4 border border-blue-100">
-          <GiHealthNormal className="text-3xl text-blue-500" />
-        </div>
-        <p className="text-gray-500 text-sm">
-          Trusted by thousands of patients worldwide
-        </p>
       </div>
     </div>
   );

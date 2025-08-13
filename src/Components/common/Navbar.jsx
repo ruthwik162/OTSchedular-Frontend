@@ -25,6 +25,14 @@ const Navbar = () => {
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const profileDropdownRef = useRef(null);
 
+  // Function to scroll to top
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
+
   // Fetch user data
   useEffect(() => {
     const fetchUser = async () => {
@@ -62,9 +70,10 @@ const Navbar = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Close mobile menu when navigating
+  // Close mobile menu when navigating and scroll to top
   useEffect(() => {
     setIsMenuOpen(false);
+    scrollToTop();
   }, [location]);
 
   // Animation variants
@@ -137,6 +146,7 @@ const Navbar = () => {
       {/* Logo */}
       <NavLink
         to={isAdmin ? "/adminhome" : "/"}
+        onClick={scrollToTop}
         className="hover:scale-105 transition-transform duration-200 p-2 flex items-center justify-center rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
         aria-label="Home"
       >
@@ -160,6 +170,7 @@ const Navbar = () => {
           <NavLink
             key={i}
             to={link.path}
+            onClick={scrollToTop}
             className={({ isActive }) =>
               `group relative flex flex-col gap-0.5 ${
                 isActive 
@@ -193,7 +204,10 @@ const Navbar = () => {
       <div className="hidden md:flex items-center gap-4">
         {user?.role === "admin" && (
           <motion.button
-            onClick={() => navigate("/adminhome")}
+            onClick={() => {
+              navigate("/adminhome");
+              scrollToTop();
+            }}
             className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full text-sm font-medium shadow-sm shadow-indigo-200"
             whileHover={{ scale: 1.05, boxShadow: "0 4px 14px rgba(99, 102, 241, 0.3)" }}
             whileTap={{ scale: 0.95 }}
@@ -259,6 +273,7 @@ const Navbar = () => {
                     onClick={() => {
                       navigate("/profile");
                       setIsProfileDropdownOpen(false);
+                      scrollToTop();
                     }}
                     className="flex items-center w-full px-4 py-2.5 text-sm text-gray-700 hover:bg-indigo-50/50 transition-colors"
                     aria-label="My Profile"
@@ -273,6 +288,7 @@ const Navbar = () => {
                       onClick={() => {
                         navigate("/adminhome");
                         setIsProfileDropdownOpen(false);
+                        scrollToTop();
                       }}
                       className="flex items-center w-full px-4 py-2.5 text-sm text-gray-700 hover:bg-indigo-50/50 transition-colors"
                       aria-label="Admin Dashboard"
@@ -287,6 +303,7 @@ const Navbar = () => {
                     onClick={() => {
                       logout();
                       setIsProfileDropdownOpen(false);
+                      scrollToTop();
                     }}
                     className="flex items-center w-full px-4 py-2.5 text-sm text-gray-700 hover:bg-indigo-50/50 transition-colors border-t border-gray-100"
                     aria-label="Sign Out"
@@ -390,7 +407,14 @@ const Navbar = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
             >
-              <NavLink to="/" className="flex items-center gap-2">
+              <NavLink 
+                to="/" 
+                onClick={() => {
+                  scrollToTop();
+                  setIsMenuOpen(false);
+                }}
+                className="flex items-center gap-2"
+              >
                 <img
                   className="h-10 w-10 object-cover rounded"
                   src={assets.Banner}
@@ -420,6 +444,10 @@ const Navbar = () => {
                 >
                   <NavLink
                     to={link.path}
+                    onClick={() => {
+                      scrollToTop();
+                      setIsMenuOpen(false);
+                    }}
                     className={({ isActive }) =>
                       `block px-4 py-3 rounded-lg transition-colors ${
                         isActive 
@@ -482,6 +510,7 @@ const Navbar = () => {
                       onClick={() => {
                         navigate("/adminhome");
                         setIsMenuOpen(false);
+                        scrollToTop();
                       }}
                       className="w-full max-w-xs px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full text-sm font-medium shadow-sm"
                       whileHover={{ scale: 1.02 }}
@@ -494,10 +523,12 @@ const Navbar = () => {
                     onClick={() => {
                       navigate("/profile");
                       setIsMenuOpen(false);
+                      scrollToTop();
                     }}
                     className="w-full max-w-xs px-6 py-2 border border-indigo-600 text-indigo-600 hover:bg-indigo-50 rounded-full text-sm font-medium"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
+                    aria-label="Profile"
                   >
                     Profile
                   </motion.button>
@@ -518,6 +549,7 @@ const Navbar = () => {
                   onClick={() => {
                     logout();
                     setIsMenuOpen(false);
+                    scrollToTop();
                   }}
                   className="w-full max-w-xs px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full text-sm font-medium shadow-sm"
                   whileHover={{ scale: 1.02 }}
