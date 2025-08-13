@@ -2,21 +2,18 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>OT Schedular Management</title>
+    <title>OT Scheduler Management</title>
     <script type="text/javascript">
       (function () {
         const { protocol, host, pathname, search, hash } = window.location;
         const pathSegments = pathname.split("/").filter(Boolean);
 
-        // Only redirect if deeper path exists (e.g., /hostels/room-details)
-        if (pathSegments.length > 1 && pathSegments[0] !== "?") {
-          const basePath = pathSegments.slice(0, 1).join("/");
-          const remainingPath = pathSegments.slice(1).join("/");
-
+        // Only redirect if there’s a deep route (more than 1 segment)
+        if (pathSegments.length > 1) {
+          // Store the actual path in search params so React can pick it up
+          const redirectPath = pathname + search + hash;
           const newUrl =
-            `${protocol}//${host}/${basePath}/?/${remainingPath}` +
-            (search ? "&" + search.slice(1).replace(/&/g, "~and~") : "") +
-            hash;
+            `${protocol}//${host}/?redirect=${encodeURIComponent(redirectPath)}`;
 
           window.location.replace(newUrl);
         }
