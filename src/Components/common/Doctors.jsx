@@ -86,100 +86,98 @@ const DoctorsPage = () => {
 
   if (loading) {
     return (
-      <div className="fixed inset-0 bg-white/90 backdrop-blur-sm z-50 flex items-center justify-center">
-        <div className="text-center max-w-md px-6">
+      <div className="flex flex-col justify-center items-center min-h-screen">
+        <motion.div
+          key="spinner"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+            rotate: 360,
+          }}
+          transition={{
+            rotate: {
+              duration: 2,
+              repeat: Infinity,
+              ease: "linear",
+            },
+            opacity: { duration: 0.4 },
+            scale: { duration: 0.4 }
+          }}
+          className="mb-6 mx-auto w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-300 rounded-full flex items-center justify-center shadow-lg"
+        >
           <motion.div
-            key="spinner"
-            initial={{ opacity: 0, scale: 0.8 }}
             animate={{
-              opacity: 1,
-              scale: 1,
-              rotate: 360,
+              scale: [1, 1.1, 1],
+              opacity: [0.8, 1, 0.8]
             }}
             transition={{
-              rotate: {
-                duration: 2,
-                repeat: Infinity,
-                ease: "linear",
-              },
-              opacity: { duration: 0.4 },
-              scale: { duration: 0.4 }
+              duration: 1.5,
+              repeat: Infinity,
+              ease: "easeInOut"
             }}
-            className="mb-6 mx-auto w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-300 rounded-full flex items-center justify-center shadow-lg"
           >
-            <motion.div
-              animate={{
-                scale: [1, 1.1, 1],
-                opacity: [0.8, 1, 0.8]
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              <GiStethoscope className="w-8 h-8 text-white" />
-            </motion.div>
+            <GiStethoscope className="w-8 h-8 text-white" />
           </motion.div>
+        </motion.div>
+        <div className="space-y-4">
+          <h3 className="text-2xl font-bold text-gray-800">
+            <span className="bg-gradient-to-r from-indigo-600 to-indigo-400 bg-clip-text text-transparent">
+              Loading Medical Team
+            </span>
+          </h3>
 
-          <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-gray-800">
-              <span className="bg-gradient-to-r from-indigo-600 to-indigo-400 bg-clip-text text-transparent">
-                Loading Medical Team
-              </span>
-            </h3>
+          <p className="text-gray-600">
+            Preparing OT & Doctors for you
+          </p>
 
-            <p className="text-gray-600">
-              Preparing specialist doctors for you
-            </p>
-
-            <div className="flex justify-center mt-6">
-              {[0, 1, 2].map((i) => (
-                <motion.span
-                  key={i}
-                  className="inline-block w-3 h-3 bg-indigo-400 rounded-full mx-1"
-                  animate={{
-                    y: [0, -12, 0],
-                    opacity: [0.6, 1, 0.6],
-                    scale: [1, 1.2, 1]
-                  }}
-                  transition={{
-                    duration: 1.2,
-                    repeat: Infinity,
-                    delay: i * 0.2,
-                    ease: "easeInOut"
-                  }}
-                />
-              ))}
-            </div>
+          {/* Enhanced bouncing dots */}
+          <div className="flex justify-center mt-6">
+            {[0, 1, 2].map((i) => (
+              <motion.span
+                key={i}
+                className="inline-block w-3 h-3 bg-indigo-400 rounded-full mx-1"
+                animate={{
+                  y: [0, -12, 0],
+                  opacity: [0.6, 1, 0.6],
+                  scale: [1, 1.2, 1]
+                }}
+                transition={{
+                  duration: 1.2,
+                  repeat: Infinity,
+                  delay: i * 0.2,
+                  ease: "easeInOut"
+                }}
+              />
+            ))}
           </div>
-
-          <motion.div
-            className="absolute top-1/4 left-1/4 w-8 h-8 rounded-full bg-indigo-100/50"
-            animate={{
-              y: [0, 15, 0],
-              opacity: [0.3, 0.6, 0.3]
-            }}
-            transition={{
-              duration: 6,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-          <motion.div
-            className="absolute bottom-1/4 right-1/4 w-6 h-6 rounded-full bg-indigo-100/50"
-            animate={{
-              y: [0, -10, 0],
-              opacity: [0.4, 0.7, 0.4]
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              delay: 1,
-              ease: "easeInOut"
-            }}
-          />
         </div>
+
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-8 h-8 rounded-full bg-indigo-100/50"
+          animate={{
+            y: [0, 15, 0],
+            opacity: [0.3, 0.6, 0.3]
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-6 h-6 rounded-full bg-indigo-100/50"
+          animate={{
+            y: [0, -10, 0],
+            opacity: [0.4, 0.7, 0.4]
+          }}
+          transition={{
+            duration: 5,
+            repeat: Infinity,
+            delay: 1,
+            ease: "easeInOut"
+          }}
+        />
       </div>
     );
   }
